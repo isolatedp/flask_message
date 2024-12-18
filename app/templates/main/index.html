@@ -1,0 +1,83 @@
+{% extends "_base.html" %} {% block title %} My Website - 首頁 {% endblock %} {%
+block content %}
+<!-- 留言板 -->
+<h2 class="mb-4 text-center">留言板</h2>
+<p class="text-muted">
+  <span>這是一個簡易的留言板網站，歡迎來訪，並發表留言。</span><br />
+  <span
+    >部分留言經過檢舉後，會經由管理員審核。若有太超出情緒的內容，將予以刪除。
+    為了避免刪除時造成您心理上的不便，請您謹慎發言。</span
+  >
+</p>
+<form method="post" action="{{ url_for('main.index') }}">
+  {{ form.hidden_tag() }}
+  <div class="mb-4">
+    {{ form.nickname(class="form-control", placeholder="請輸入您的暱稱") }}
+  </div>
+  <!-- 留言輸入框 -->
+  <div class="mb-3">
+    {{ form.message(class="form-control", rows="4",
+    placeholder="請輸入您的留言") }}
+  </div>
+  <!-- 提交按鈕 -->
+  <div class="d-flex justify-content-end">
+    {{ form.submit(class="btn btn-primary") }}
+  </div>
+</form>
+
+<!-- 留言列表 -->
+<hr class="my-4" />
+<div class="message-board">
+  {% for message in messages %}
+  <div class="border-bottom pb-3 mb-3">
+    <!-- 留言內容 -->
+    <p class="text-muted mb-1">發表時間：{{ message.created_at }}</p>
+    <p class="fw-bold">{{ message.nickname }} 說：</p>
+    <p class="mb-2">{{ message.message }}</p>
+
+    <!-- 回應表單按鈕 -->
+    <div class="d-flex justify-content-end">
+      <button
+        class="btn btn-sm btn-link text-primary"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#response-form-{{ message.id }}"
+        aria-expanded="false"
+        aria-controls="response-form-{{ message.id }}"
+      >
+        回應
+      </button>
+    </div>
+
+    <!-- 回應表單 -->
+    <div class="collapse mt-2" id="response-form-{{ message.id }}">
+      <form method="post" action="/">
+        {{ form.hidden_tag() }}
+        {{ form.main_id(class="d-none", value=message.id) }}
+        <div class="mb-4">
+          {{ form.nickname(class="form-control", placeholder="請輸入您的暱稱") }}
+        </div>
+        <!-- 回應輸入框 -->
+        <div class="mb-3">
+          {{ form.message(class="form-control", rows="4",
+          placeholder="請輸入您的回應") }}
+        </div>
+        <!-- 提交按鈕 -->
+        <div class="d-flex justify-content-end">
+          {{ form.submit(class="btn btn-primary") }}
+        </div>
+      </form>
+    </div>
+
+    <!-- 回應列表 -->
+    {% for response in messages_response %} {% if response.main_id == message.id %}
+    <div class="ps-3 border-start border-2 mt-3">
+      <p class="text-muted mb-1">回應時間：{{ response.created_at }}</p>
+      <p class="fw-bold">{{ response.nickname }} 回應：</p>
+      <p>{{ response.message }}</p>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -4,7 +4,7 @@ import os
 from flask import Flask
 
 from app.configs import BaseConfig
-from app.utils.inject_prepend import inject_prepend, custom_url_for
+from app.utils.inject_prepend import custom_url_for
 
 
 def create_app():
@@ -13,8 +13,6 @@ def create_app():
 
     # 註冊為 Jinja2 全域變數
     app.jinja_env.globals['url_for'] = custom_url_for
-    # 註冊為 Jinja2 過濾器
-    app.add_template_filter(inject_prepend(), 'prepend')
 
     register_extensions(app)
     register_blueprints(app)

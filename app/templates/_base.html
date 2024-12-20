@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/static/imgs/favicon.ico" />
+    <link rel="icon" href="{{ url_for('static', filename='imgs/favicon.ico' ) }}" />
+    
     <title>{% block title %}My Website{% endblock %}</title>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" />
   </head>
   <body class="d-flex flex-column h-100 m-0">
     <header>{% include "_navbar.html" %}</header>
@@ -37,6 +38,6 @@
       <p class="mb-0">&copy; 2024 My Website</p>
     </footer>
 
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
   </body>
 </html>

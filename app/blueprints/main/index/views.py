@@ -1,11 +1,12 @@
 from datetime import datetime
 import traceback
 
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, flash
 from flask.views import MethodView
 import pytz
 
 from app.utils.get_request_ip import get_request_ip
+from app.utils.inject_prepend import custom_url_for as url_for
 from app.extensions import db
 from app.models.sayhello_db import Message
 from .forms import MessageForm

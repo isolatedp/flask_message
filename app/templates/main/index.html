@@ -51,7 +51,7 @@ block content %}
 
     <!-- 回應表單 -->
     <div class="collapse mt-2" id="response-form-{{ message.id }}">
-      <form method="post" action="/">
+      <form method="post" action="{{ url_for('main.index') }}">
         {{ form.hidden_tag() }}
         {{ form.main_id(class="d-none", value=message.id) }}
         <div class="mb-4">

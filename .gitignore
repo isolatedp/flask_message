@@ -1,4 +1,7 @@
 .venv
 .vscode
 __pycache__
-settings/*
+
+settings/settings_local.yaml
+settings/settings_dev.yaml
+settings/settings_prod.yaml

@@ -4,11 +4,15 @@ import os
 from flask import Flask
 
 from app.configs import BaseConfig
+from app.utils.inject_prepend import custom_url_for
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(BaseConfig)
+
+    # 自定義 Jinja2 模板 url_for
+    app.jinja_env.globals['url_for'] = custom_url_for
 
     register_extensions(app)
     register_blueprints(app)
